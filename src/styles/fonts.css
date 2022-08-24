@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Bambino';
+  src: url('/fonts/Bambino.ttf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HotRuby';
+  src: url('/fonts/HotRuby.ttf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TheOwl';
+  src: url('/fonts/TheOwl.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
