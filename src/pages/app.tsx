@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { AppLayout } from '../components/layouts/App';
 import { requireAuthentication } from '../utils/app';
 
 const App: NextPage = ({ currentUser }: any) => {
@@ -9,12 +10,9 @@ const App: NextPage = ({ currentUser }: any) => {
         <title>JustChat: App</title>
       </Head>
 
-      <div>
-        <h2>app</h2>
-      </div>
-      <div>
-        <p>{currentUser.name}</p>
-      </div>
+      <AppLayout
+        currentUser={currentUser}
+      />
     </>
   )
 }

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { colors } from "./constants";
 
 export const GlobalStyle = createGlobalStyle`
   html,
@@ -6,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-family: Bambino;
+    background-color: ${colors.TERTIARY};
   }
 
   a {
