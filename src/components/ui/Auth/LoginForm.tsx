@@ -41,7 +41,6 @@ export const LoginForm = (props) => {
         isLogin
         style={{ marginTop: 40 }}
         type='submit'
-        onClick={formik.handleSubmit}
       >
         Entrar
       </AuthButton>

@@ -6,7 +6,7 @@ export const AuthButton = styled.div<any>`
   border-radius: 50px;
   font-size: 19px;
   height: 49px;
-  width: 260px;
+  width: ${props => props.width ? props.width : '260px'};
   display: flex;
   align-items: center;
   justify-content: center;

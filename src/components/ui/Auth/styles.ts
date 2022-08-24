@@ -22,7 +22,7 @@ export const CreateAccountTitleArea = styled.div`
   h2 {
     margin: 0;
     margin-top: 60px;
-    font-size: 28px;
+    font-size: 36px;
     color: #efefef;
     b {
       font-size: 32px;
@@ -34,6 +34,25 @@ export const CreateAccountTitleArea = styled.div`
 export const FormArea = styled.div`
   margin-left: 90px;
   width: 450px;
+  form {
+    button {
+      width: 250px;
+    }
+  }
+  @media screen and (max-width: 912px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    width: 100%;
+    form {
+      width: 320px;
+      button {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 export const DivInputRow = styled.div`

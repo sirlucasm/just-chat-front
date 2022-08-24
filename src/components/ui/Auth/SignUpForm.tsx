@@ -74,7 +74,6 @@ export const SignUpForm = (props) => {
         isLogin
         style={{ marginTop: 40 }}
         type='submit'
-        onClick={formik.handleSubmit}
       >
         Cadastrar
       </AuthButton>
