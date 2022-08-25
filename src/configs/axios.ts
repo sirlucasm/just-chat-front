@@ -9,18 +9,11 @@ const { ['justchat.access_token']: token } = parseCookies();
 const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL });
 
 if (token) {
-  API.interceptors.request.use(
-    (config: any) => {
-      config.headers['Authorization'] = `Bearer ${token}`;
-      return config;
-    },
-    error => {
-      return Promise.reject(error);
-    }
-  );
-  // API.defaults.headers = {
-  //   Authorization: `Bearer ${token}`
-  // } as CommonHeaderProperties;
+  API.defaults.headers = {
+    Authorization: `Bearer ${token}`
+  } as CommonHeaderProperties;
 }
 
-export { API };
+const generateAuthHeader = (token: string | undefined) => ({ headers: { Authorization: `Bearer ${token}`} })
+
+export { API, generateAuthHeader };
