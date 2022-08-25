@@ -6,7 +6,12 @@ export interface CommonHeaderProperties extends HeadersDefaults {
 }
 
 const { ['justchat.access_token']: token } = parseCookies();
-const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL });
+const API = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+});
 
 if (token) {
   API.interceptors.request.use(
