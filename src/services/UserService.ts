@@ -1,5 +1,5 @@
 import { destroyCookie, setCookie } from "nookies";
-import { API, CommonHeaderProperties } from "../configs/axios"
+import { API } from "../configs/axios"
 import { LoginParams } from "../interfaces/user";
 
 class UserService {

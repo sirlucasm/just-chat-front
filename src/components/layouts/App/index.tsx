@@ -11,7 +11,7 @@ export const AppLayout = ({ currentUser }: AppLayoutProps) => {
   return (
     <AppContainer>
       <Header />
-      <Chats />
+      <Chats currentUser={currentUser} />
     </AppContainer>
   );
 }

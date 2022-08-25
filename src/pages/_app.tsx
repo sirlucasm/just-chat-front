@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SWRConfig
       value={{
-        fetcher: async (resource, init) => await API(resource, init)
+        fetcher: async (resource, init) => API(resource, init).then(res => res.data)
       }}
     >
       <AuthProvider>
