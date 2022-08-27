@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { AuthProvider } from '../contexts/auth/authProvider';
 import { Toaster } from 'react-hot-toast';
 import { parseCookies } from 'nookies';
+import { AppProvider } from '../contexts/app/appProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -24,9 +25,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <AuthProvider>
-        <GlobalStyle />
-        <Component {...pageProps} />
-        <Toaster position="top-right" />
+        <AppProvider>
+          <GlobalStyle />
+          <Component {...pageProps} />
+          <Toaster position="top-right" />
+        </AppProvider>
       </AuthProvider>
     </SWRConfig>
   );

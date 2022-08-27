@@ -1,4 +1,5 @@
 import { IUser } from "../../../interfaces/user";
+import { ChatOpen } from "../../ui/App/ChatOpen";
 import { Chats } from "../../ui/App/Chats";
 import { Header } from "../../ui/App/Header";
 import { AppContainer } from "./styles";
@@ -12,6 +13,7 @@ export const AppLayout = ({ currentUser }: AppLayoutProps) => {
     <AppContainer>
       <Header />
       <Chats currentUser={currentUser} />
+      <ChatOpen currentUser={currentUser} />
     </AppContainer>
   );
 }

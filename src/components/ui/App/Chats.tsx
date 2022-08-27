@@ -6,6 +6,9 @@ import { SyncLoader } from "react-spinners";
 import { Badge, Avatar } from "@mui/material";
 import { getCurrentChatInfo } from "../../../utils/chat";
 import { IUser } from "../../../interfaces/user";
+import { useEffect, useState } from "react";
+import { socket } from "../../../configs/socket";
+import { useAppContext } from "../../../contexts/app";
 
 interface ChatsProps {
   currentUser: IUser;
@@ -54,16 +57,17 @@ const ChatList = styled.div`
   margin-top: 20px;
 `;
 
-const ChatItem = styled.div`
+const ChatItem = styled.div<any>`
   display: flex;
   align-items: center;
-  background-color: #323645;
+  background-color: ${props => props.activeChat ? colors.SECONDARY : '#323645'};
   margin: 12px 0;
   padding: 14px;
   border-radius: 14px;
   cursor: pointer;
+  transition: .4s;
   &:hover {
-    background-color: #393d4d;
+    background-color: ${props => props.activeChat ? '#157ed9' : '#393d4d' };
   }
 `;
 
@@ -86,6 +90,14 @@ const ChatInfo = styled.div`
 
 export const Chats = ({ currentUser }: ChatsProps) => {
   const { chats, isLoading } = useChatSWR();
+  const { openedChat, handleOpenChat } = useAppContext();
+  const [onlineUsers, setOnlineUsers] = useState<any>([]);
+
+  useEffect(() => {
+    if (!isLoading) socket.emit('message:chat:join', chats);
+    socket.on('user:onlineList', (payload) => setOnlineUsers(payload));
+  }, [isLoading]);
+
   return (
     <Container>
       <TitleArea>
@@ -109,13 +121,17 @@ export const Chats = ({ currentUser }: ChatsProps) => {
                 const isRoom = !!currentChatInfo.createdBy;
 
                 return (
-                  <ChatItem key={index}>
+                  <ChatItem
+                    key={index}
+                    onClick={() => handleOpenChat(chat)}
+                    activeChat={openedChat._id === chat._id}
+                  >
                     <div>
                       <Badge
                         overlap="circular"
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         variant="dot"
-                        color={isRoom ? "default" : "success"}
+                        color={isRoom ? "default" : onlineUsers.includes(currentChatInfo._id) ? "success" : "default"}
                       >
                         <Avatar alt={currentChatInfo.name} />
                       </Badge>

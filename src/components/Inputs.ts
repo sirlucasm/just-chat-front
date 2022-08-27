@@ -26,3 +26,12 @@ export const AuthInput = styled.input<any>`
     box-shadow: 0 0 4px 1px rgba(255, 69, 69, .6);
   `}
 `;
+
+export const ChatInput = styled(AuthInput)`
+  background-color: #424657;
+  padding-top: 11px;
+  min-height: 45px;
+  max-height: 70px;
+  overflow: hidden;
+  resize: none;
+`;
