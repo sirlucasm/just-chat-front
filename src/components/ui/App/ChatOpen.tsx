@@ -176,12 +176,13 @@ export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
         userId: currentUser._id,
         chat: openedChat
       });
+      mutate('chats');
     }
   }
 
   const scrollToBottom = () => {
     if (!chatContentRef.current) return;
-    chatContentRef.current.scrollTo(0, chatContentRef.current.offsetTop - (-chatContentRef.current.offsetHeight));
+    chatContentRef.current.scrollTo(0, chatContentRef.current.scrollHeight - chatContentRef.current.offsetHeight);
   };
 
   useEffect(() => {
@@ -196,7 +197,6 @@ export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
   }, [openedChat]);
 
   useEffect(() => {
-    mutate('chats');
     scrollToBottom();
   }, [messages]);
 
@@ -205,7 +205,7 @@ export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
       {
         openedChat && currentUserChatInfo ?
           <Container>
-            <UserHeaderInfoArea>
+            <UserHeaderInfoArea data-aos="fade-down">
               <Badge
                 overlap="circular"
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -222,7 +222,7 @@ export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
                 <span>{isOnline ? 'Online' : 'Offline'}</span>
               </UsernameAndActivity>
             </UserHeaderInfoArea>
-            <ChatContent>
+            <ChatContent data-aos="fade">
               <PanelChat ref={chatContentRef}>
                 {
                   messages.map((message: any, index) => {
