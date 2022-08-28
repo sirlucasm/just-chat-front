@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { TbSend } from "react-icons/tb";
 import styled from "styled-components";
+import { useSWRConfig } from "swr";
 import { socket } from "../../../configs/socket";
 import { useAppContext } from "../../../contexts/app";
 import { IUser } from "../../../interfaces/user";
@@ -60,6 +61,7 @@ const ChatContent = styled.div`
   border-radius: 14px;
   background-color: #323645;
   width: 100%;
+  height: 100%;
   max-height: 89%;
   position: relative;
 `;
@@ -95,7 +97,7 @@ const MessageItem = styled.div<any>`
   background-color: ${({ me }) => me ? colors.SECONDARY : '#434758'};
   color: ${colors.WHITE};
   padding: 14px 18px;
-  user-select: none;
+  cursor: default;
   display: flex;
   align-items: center;
   overflow-wrap: anywhere;
@@ -142,6 +144,7 @@ const UserInfoText = styled.div<any>`
 `;
 
 export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
+  const { mutate } = useSWRConfig();
   const chatContentRef = useRef<any>();
   const { openedChat } = useAppContext();
   const currentUserChatInfo = getCurrentChatInfo(openedChat, currentUser);
@@ -166,12 +169,14 @@ export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
   }
 
   const sendMessage = () => {
-    setTextMessage('');
-    socket.emit('message:chat:message', {
-      textMessage,
-      userId: currentUser._id,
-      chat: openedChat
-    });
+    if (textMessage.trim()) {
+      setTextMessage('');
+      socket.emit('message:chat:message', {
+        textMessage,
+        userId: currentUser._id,
+        chat: openedChat
+      });
+    }
   }
 
   const scrollToBottom = () => {
@@ -188,9 +193,10 @@ export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
   useEffect(() => {
     if (!openedChat) return;
     socket.emit('message:chat:allMessages', { chatId: openedChat._id });
-  }, [openedChat._id]);
+  }, [openedChat]);
 
   useEffect(() => {
+    mutate('chats');
     scrollToBottom();
   }, [messages]);
 
@@ -233,7 +239,7 @@ export const ChatOpen = ({ currentUser }: ChatOpenProps) => {
                           />
                           <UserInfoText me={itsMe}>
                             <span>{message.user.name}</span>
-                            <strong>{formatMessageSentDate(Date.now())}</strong>
+                            <strong>{formatMessageSentDate(message.createdAt)}</strong>
                           </UserInfoText>
                         </UserMessageInfo>
                       </MessageContainer>

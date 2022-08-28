@@ -84,6 +84,8 @@ const ChatInfo = styled.div`
     p {
       font-size: 12px;
       color: #afafaf;
+      margin: 0;
+      margin-top: -4px;
     }
   }
 `;
