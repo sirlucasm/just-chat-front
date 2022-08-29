@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import { BsFillChatRightDotsFill } from 'react-icons/bs';
 import { IoMdSettings } from 'react-icons/io';
-import { IoNotifications } from 'react-icons/io5';
-import { colors } from "../../../../styles/constants";
+import { FaUserPlus } from 'react-icons/fa';
+import { colors } from "../../../styles/constants";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import {
@@ -21,9 +21,9 @@ const navItems = [
     icon: <BsFillChatRightDotsFill size={19} color={colors.WHITE} />
   },
   {
-    pathname: '/notificacoes',
-    name: 'notificacoes',
-    icon: <IoNotifications size={19} color={colors.WHITE} />
+    pathname: '/solicitacoes',
+    name: 'solicitacoes',
+    icon: <FaUserPlus size={19} color={colors.WHITE} />
   },
   {
     pathname: '/configurar',

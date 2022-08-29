@@ -52,6 +52,7 @@ export const ChatItem = styled.div<any>`
   padding: 14px;
   border-radius: 14px;
   cursor: pointer;
+  user-select: none;
   transition: .4s;
   &:hover {
     background-color: ${props => props.activeChat ? '#157ed9' : '#393d4d' };

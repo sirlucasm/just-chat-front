@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../../../styles/constants";
+import { colors } from "../../../styles/constants";
 
 export const NavArea = styled.nav`
   padding: 30px 0;

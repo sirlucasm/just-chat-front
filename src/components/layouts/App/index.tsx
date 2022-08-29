@@ -1,7 +1,7 @@
 import { IUser } from "../../../interfaces/user";
 import { ChatOpen } from "../../ui/App/ChatOpen";
 import { Chats } from "../../ui/App/Chats";
-import { Header } from "../../ui/App/Header";
+import { Header } from "../../ui/Header";
 import { AppContainer } from "./styles";
 
 interface AppLayoutProps {
