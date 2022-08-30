@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
       .promise(UserService.login({ username, password }), {
         loading: 'Entrando...',
         success: '',
-        error: (error: any) => error?.response.data.message
+        error: (error: any) => error?.response?.data?.message
       })
         .then(() => router.replace('/app'));
   }
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
       .promise(UserService.create(params), {
         loading: 'Criando conta',
         success: '',
-        error: (error: any) => error?.response.data.message
+        error: (error: any) => error?.response?.data?.message
       })
         .then(() => router.replace('/app'));
   }
