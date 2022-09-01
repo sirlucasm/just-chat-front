@@ -1,14 +1,34 @@
 import { Avatar } from "@mui/material";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { FaSearch } from "react-icons/fa";
 import { SyncLoader } from "react-spinners";
 import { IFriend } from "../../../../interfaces/friend";
+import { IUser } from "../../../../interfaces/user";
 import FriendService from "../../../../services/FriendService";
 import { useFriendRequestReceivedSWR } from "../../../../services/swr/friendSwr";
+import UserService from "../../../../services/UserService";
 import { colors } from "../../../../styles/constants";
-import { ActionArea, ActionItem, RequestsPendingContainer, TitleArea, UserItem, UserList, UserNameArea } from "./styles";
+import { SearchInput } from "../../../Inputs";
+import { SearchUserModal } from "../SearchUserModal";
+import {
+  ActionArea,
+  ActionItem,
+  RequestsPendingContainer,
+  SearchArea,
+  SearchButton,
+  SearchRow,
+  TitleArea,
+   UserItem,
+   UserList,
+   UserNameArea
+} from "./styles";
 
 export default function RequestsSent() {
   const { friendRequestsReceived, isLoading: loadingRequestsReceived, mutate } = useFriendRequestReceivedSWR();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResult, setSearchResult] = useState<IUser[]>([]);
+  const [openSearchModal, setOpenSearchModal] = useState(false);
 
   const handleAcceptFriend = async (friendId: string) => {
     toast.promise(FriendService.accept(friendId), {
@@ -28,6 +48,14 @@ export default function RequestsSent() {
       .then(() => mutate());
   }
 
+  const handleSearchUser = async () => {
+    if (!searchQuery.trim() || searchQuery.length <= 2) return;
+    const searchResult = await UserService.search(searchQuery);
+
+    setSearchResult(searchResult);
+    setOpenSearchModal(true);
+  }
+
   return (
     <RequestsPendingContainer>
       <TitleArea>
@@ -35,6 +63,22 @@ export default function RequestsSent() {
           Solicitações recebidas
         </h2>
       </TitleArea>
+      <SearchArea>
+        <SearchRow>
+          <SearchInput
+            placeholder='Buscar usuário'
+            onChange={(e: any) => setSearchQuery(e.target.value)}
+          />
+          <SearchButton onClick={handleSearchUser}>
+            <FaSearch size={16} color="#2e2e2e" />
+          </SearchButton>
+        </SearchRow>
+        <SearchUserModal
+          searchResult={searchResult}
+          open={openSearchModal}
+          handleClose={() => setOpenSearchModal(false)}
+        />
+      </SearchArea>
       <UserList>
         {
           loadingRequestsReceived ?

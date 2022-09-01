@@ -22,6 +22,11 @@ class UserService {
     return data;
   }
 
+  async search (searchQuery: string) {
+    const { data } = await API.get('users/search', { params: { s: searchQuery } });
+    return data;
+  }
+
   async logout(): Promise<void> {
     destroyCookie(null, 'justchat.access_token');
   }

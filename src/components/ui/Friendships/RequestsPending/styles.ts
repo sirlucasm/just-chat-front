@@ -78,3 +78,31 @@ export const ActionItem = styled.button<{ acceptFriendButton?: boolean; mr?: num
     span { color: ${colors.SUCCESS}; }
   `}
 `;
+
+export const SearchArea = styled.div`
+  max-width: 80%;
+  position: relative;
+`;
+
+export const SearchRow = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const SearchButton = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: #54c0eb;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .4s;
+  cursor: pointer;
+  margin-left: 8px;
+  &:hover {
+    box-shadow: 0 0 10px 0 #1c8dee;
+  }
+`;

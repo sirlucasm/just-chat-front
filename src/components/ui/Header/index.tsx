@@ -1,18 +1,21 @@
 import Image from "next/image";
-import styled from "styled-components";
 
 import { BsFillChatRightDotsFill } from 'react-icons/bs';
 import { IoMdSettings } from 'react-icons/io';
 import { FaUserPlus } from 'react-icons/fa';
 import { colors } from "../../../styles/constants";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import {
   NavArea,
   NavItems,
-  NavItem,
   ProfileArea
 } from './styles';
+import { IFriend } from "../../../interfaces/friend";
+import { HeaderItem } from "./HeaderItem";
+
+interface HeaderProps {
+  friendRequestsReceived?: IFriend[];
+}
 
 const navItems = [
   {
@@ -32,7 +35,7 @@ const navItems = [
   },
 ]
 
-export const Header = () => {
+export const Header = ({ friendRequestsReceived }: HeaderProps) => {
   const router = useRouter();
 
   const routeActive = (pathname: string) => router.pathname === pathname;
@@ -50,13 +53,12 @@ export const Header = () => {
 
       <NavItems>
         {
-          navItems.map((item, index) => (
-            <NavItem key={index} active={routeActive(item.pathname)}>
-              <Link href={item.pathname}>
-                <a>{item.icon}</a>
-              </Link>
-            </NavItem>
-          ))
+          navItems.map((item, index) => <HeaderItem
+            key={index}
+            item={item}
+            active={routeActive(item.pathname)}
+            friendRequestsReceived={friendRequestsReceived}
+          />)
         }
       </NavItems>
 

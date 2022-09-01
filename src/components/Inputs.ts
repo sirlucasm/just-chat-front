@@ -35,3 +35,7 @@ export const ChatInput = styled(AuthInput)`
   overflow: hidden;
   resize: none;
 `;
+
+export const SearchInput = styled(ChatInput)`
+  padding-top: 0;
+`;
