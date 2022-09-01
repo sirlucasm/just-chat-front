@@ -9,10 +9,9 @@ interface FriendshipLayoutProps {
 }
 
 export const FriendshipLayout = ({ currentUser }: FriendshipLayoutProps) => {
-  const { friendRequestsReceived, } = useFriendRequestReceivedSWR();
   return (
     <FriendshipContainer>
-      <Header friendRequestsReceived={friendRequestsReceived} />
+      <Header />
       <RequestsPending />
       <RequestsSent />
     </FriendshipContainer>

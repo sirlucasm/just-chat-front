@@ -25,13 +25,15 @@ import {
 } from "./styles";
 
 export default function RequestsSent() {
+  const userService = new UserService();
+  const friendService = new FriendService();
   const { friendRequestsReceived, isLoading: loadingRequestsReceived, mutate } = useFriendRequestReceivedSWR();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState<IUser[]>([]);
   const [openSearchModal, setOpenSearchModal] = useState(false);
 
   const handleAcceptFriend = async (friendId: string) => {
-    toast.promise(FriendService.accept(friendId), {
+    toast.promise(friendService.accept(friendId), {
       loading: '',
       success: 'Solicitação aceita',
       error: (error: any) => error?.response?.data?.message
@@ -40,17 +42,20 @@ export default function RequestsSent() {
   }
 
   const handleRefuseFriend = async (friendId: string) => {
-    toast.promise(FriendService.refuse(friendId), {
+    toast.promise(friendService.refuse(friendId), {
       loading: '',
-      success: 'Solicitação aceita',
+      success: 'Solicitação recusada',
       error: (error: any) => error?.response?.data?.message
     })
       .then(() => mutate());
   }
 
   const handleSearchUser = async () => {
-    if (!searchQuery.trim() || searchQuery.length <= 2) return;
-    const searchResult = await UserService.search(searchQuery);
+    if (!searchQuery.trim() || searchQuery.length < 2) {
+      setOpenSearchModal(false);
+      return;
+    }
+    const searchResult = await userService.search(searchQuery);
 
     setSearchResult(searchResult);
     setOpenSearchModal(true);
@@ -68,6 +73,7 @@ export default function RequestsSent() {
           <SearchInput
             placeholder='Buscar usuário'
             onChange={(e: any) => setSearchQuery(e.target.value)}
+            onKeyDown={(e: any) => e.keyCode === 13 && handleSearchUser()}
           />
           <SearchButton onClick={handleSearchUser}>
             <FaSearch size={16} color="#2e2e2e" />
@@ -82,7 +88,7 @@ export default function RequestsSent() {
       <UserList>
         {
           loadingRequestsReceived ?
-            <SyncLoader color={colors.PRIMARY} />
+            <SyncLoader color={colors.PRIMARY} style={{ marginTop: 20 }} />
             :
             friendRequestsReceived.map((frr: IFriend, index: number) => {
               const { requester } = frr;

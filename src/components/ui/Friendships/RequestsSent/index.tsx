@@ -8,10 +8,11 @@ import { colors } from "../../../../styles/constants";
 import { ActionArea, ActionItem, RequestsSentContainer, TitleArea, UserItem, UserList, UserNameArea } from "./styles";
 
 export default function RequestsPending() {
+  const friendService = new FriendService();
   const { friendRequestsSended, isLoading: loadingRequestsSended, mutate } = useFriendRequestSendedSWR();
 
   const handleRefuseFriend = async (friendId: string) => {
-    toast.promise(FriendService.refuse(friendId), {
+    toast.promise(friendService.refuse(friendId), {
       loading: '',
       success: 'Solicitação aceita',
       error: (error: any) => error?.response?.data?.message

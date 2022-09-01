@@ -1,8 +1,14 @@
 import { Avatar } from "@mui/material";
 import { IoIosArrowUp } from "react-icons/io";
+import { useAppContext } from "../../../../contexts/app";
 import { IUser } from "../../../../interfaces/user";
-import { ActionArea, ActionItem, UserItem, UserNameArea } from "../RequestsPending/styles";
-import { CloseButton, Container, NoResultArea } from "./styles";
+import {
+  CloseButton,
+  Container,
+  NoResultArea,
+  UserItem,
+  UserNameArea
+} from "./styles";
 
 interface SearchModalProps {
   searchResult: IUser[];
@@ -11,6 +17,7 @@ interface SearchModalProps {
 }
 
 export const SearchUserModal = ({ searchResult, open, handleClose }: SearchModalProps) => {
+  const { handleOpenUserModal } = useAppContext();
   return (
     <>
       {
@@ -22,7 +29,7 @@ export const SearchUserModal = ({ searchResult, open, handleClose }: SearchModal
           {
             searchResult.length ?
               searchResult.map((user, index) => (
-                <UserItem key={index}>
+                <UserItem key={index} onClick={() => handleOpenUserModal(user)}>
                   <Avatar
                     alt={user.name}
                     sx={{ width: 38, height: 38, cursor: 'pointer' }}
@@ -35,8 +42,6 @@ export const SearchUserModal = ({ searchResult, open, handleClose }: SearchModal
                       <span className="username-text">{user.username}</span>
                     </div>
                   </UserNameArea>
-                  <ActionArea>
-                  </ActionArea>
                 </UserItem>
               ))
               :

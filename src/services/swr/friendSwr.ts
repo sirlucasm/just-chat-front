@@ -17,3 +17,12 @@ export const useFriendRequestSendedSWR = () => {
     ...params
   }
 }
+
+export const useGetFriendByUserIdSWR = (user: any) => {
+  const { data: friend, ...params } = useSWR(`friends/by-user-id?userId=${user._id}`);
+  return {
+    friend,
+    isLoading: !friend,
+    ...params
+  }
+}

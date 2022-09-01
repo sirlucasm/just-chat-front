@@ -26,9 +26,8 @@ export const HeaderItem = ({ ...props }) => {
             <Badge
               overlap="circular"
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              variant="dot"
               color={"info"}
-              badgeContent={friendRequestsReceived?.length}
+              badgeContent={friendRequestsReceived.length}
             >
               <Link href={item.pathname}>
                 <a>{item.icon}</a>

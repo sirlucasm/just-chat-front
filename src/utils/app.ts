@@ -1,7 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import { parseCookies } from "nookies";
-import { API, CommonHeaderProperties } from "../configs/axios";
-import UserService from "../services/UserService";
+import { getAPIClient } from "./axios";
 
 const redirectLoginPage = {
   redirect: {
@@ -19,15 +18,13 @@ const redirectAppPage = {
 
 export const requireAuthentication = () => {
   return async (ctx: GetServerSidePropsContext) => {
+    const ApiClient = getAPIClient(ctx);
     const { ['justchat.access_token']: token } = parseCookies(ctx);
 
     if (!token) return redirectLoginPage;
 
-    API.defaults.headers = {
-      Authorization: `Bearer ${token}`
-    } as CommonHeaderProperties;
+    const { data: currentUser } = await ApiClient.get('auth/me');
 
-    const currentUser = await UserService.me();
     return {
       props: {
         currentUser

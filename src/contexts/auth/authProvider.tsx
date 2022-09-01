@@ -7,10 +7,11 @@ import UserService from "../../services/UserService";
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
+  const userService = new UserService();
 
   const login = ({ username, password }: LoginParams) => {
     toast
-      .promise(UserService.login({ username, password }), {
+      .promise(userService.login({ username, password }), {
         loading: 'Entrando...',
         success: '',
         error: (error: any) => error?.response?.data?.message
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = (params: CreateUserParams) => {
     toast
-      .promise(UserService.create(params), {
+      .promise(userService.create(params), {
         loading: 'Criando conta',
         success: '',
         error: (error: any) => error?.response?.data?.message
@@ -30,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     toast
-      .promise(UserService.logout(), {
+      .promise(userService.logout(), {
         loading: 'Saindo...',
         success: '',
         error: (error: any) => error?.response.data.message

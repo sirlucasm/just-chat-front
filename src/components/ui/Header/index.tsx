@@ -12,9 +12,10 @@ import {
 } from './styles';
 import { IFriend } from "../../../interfaces/friend";
 import { HeaderItem } from "./HeaderItem";
+import { useFriendRequestReceivedSWR } from "../../../services/swr/friendSwr";
 
 interface HeaderProps {
-  friendRequestsReceived?: IFriend[];
+
 }
 
 const navItems = [
@@ -35,7 +36,8 @@ const navItems = [
   },
 ]
 
-export const Header = ({ friendRequestsReceived }: HeaderProps) => {
+export const Header = ({}: HeaderProps) => {
+  const { friendRequestsReceived, } = useFriendRequestReceivedSWR();
   const router = useRouter();
 
   const routeActive = (pathname: string) => router.pathname === pathname;

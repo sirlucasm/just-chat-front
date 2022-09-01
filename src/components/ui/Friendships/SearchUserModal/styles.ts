@@ -15,6 +15,47 @@ export const Container = styled.div`
   justify-content: flex-end;
 `;
 
+export const UserList = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const UserItem = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #323645;
+  border-radius: 14px;
+  border-radius: 14px;
+  padding: 5px 10px;
+  margin-top: 8px;
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    transition: .2s;
+    background-color: #2f3342;
+  }
+`;
+
+export const UserNameArea = styled.div`
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  div {
+    .name-text {
+      position: relative;
+      top: 5px;
+      font-size: 14px;
+      color: #efefef;
+    }
+    .username-text {
+      position: relative;
+      bottom: 5px;
+      font-size: 12px;
+      color: #a5a5a5;
+    }
+  }
+`;
+
 export const CloseButton = styled.button`
   outline: none;
   border: 0;
